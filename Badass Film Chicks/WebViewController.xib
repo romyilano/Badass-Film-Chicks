@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WebViewController">
+            <connections>
+                <outlet property="addBarButtonItem" destination="ngk-Lq-i53" id="4h3-Eh-N3h"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="7e0-4o-Lzd" id="2Kv-05-ye2"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6UJ-2M-EJU">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <items>
+                        <barButtonItem title="Close" id="RYV-6h-HI8">
+                            <connections>
+                                <action selector="closeBtnPressed:" destination="-1" id="k4N-pt-0KQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="125" style="plain" systemItem="fixedSpace" id="Y2h-hj-f9S"/>
+                        <barButtonItem title="Back" id="xtG-Tn-p0H">
+                            <connections>
+                                <action selector="backBtnPressed:" destination="-1" id="Awj-UF-Idc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="125" style="plain" systemItem="fixedSpace" id="lcM-HI-Ogi"/>
+                        <barButtonItem title="+" id="ngk-Lq-i53">
+                            <connections>
+                                <action selector="addBtnPressed:" destination="-1" id="tdt-jA-idB"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+                <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7e0-4o-Lzd">
+                    <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </webView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="7e0-4o-Lzd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="4BX-fn-d9U"/>
+                <constraint firstItem="7e0-4o-Lzd" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="6cU-My-WRo"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <point key="canvasLocation" x="91" y="207"/>
+        </view>
+    </objects>
+</document>

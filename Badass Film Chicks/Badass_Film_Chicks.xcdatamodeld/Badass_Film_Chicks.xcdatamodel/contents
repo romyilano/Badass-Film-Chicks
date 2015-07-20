@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.20" systemVersion="14E46" minimumToolsVersion="Automatic">
+    <entity name="Director" syncable="YES">
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="birthdate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Film" syncable="YES">
+        <attribute name="bechdelTest" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="femalDirector" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="hotYoungMaleLead" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="imdbLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imdbNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="noOlderLeadingMan" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="posterUrlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="strongFemaleLead" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="synposis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wikiLinkString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Director" positionX="126" positionY="-27" width="128" height="103"/>
+        <element name="Film" positionX="-63" positionY="-18" width="128" height="240"/>
+    </elements>
+</model>
