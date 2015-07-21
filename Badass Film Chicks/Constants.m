@@ -17,6 +17,8 @@ NSString *const kRottenTomatoesAPIKey = kSecretRottenTomatoesApiKey;
 NSString *const kParseRESTAPIKey = kSecretParseRESTAPIKey;
 NSString *const kParseMasterKey = kSecretParseMasterKey;
 
+NSString *const URLRSSIndieWire = @"http://feeds.feedburner.com/indiewire/womenandhollywood?format=xml";
+
 NSString *const kOpenMDBAPIBaseURL= @"http://www.omdbapi.com";
 
 #pragma mark - PFObject User Keys

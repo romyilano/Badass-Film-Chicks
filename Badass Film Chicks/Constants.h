@@ -7,6 +7,7 @@ extern NSString *const kParseClientKey;
 extern NSString *const kParseRESTAPIKey;
 extern NSString *const kParseMasterKey;
 
+extern NSString *const URLRSSIndieWire;
 extern NSString *const kRottenTomatoesAPIKey;
 
 #pragma mark - URLs

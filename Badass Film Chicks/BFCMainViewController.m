@@ -8,10 +8,14 @@
 
 #import "BFCMainViewController.h"
 #import "NibTableViewCell.h"
+#import "NSString+HTML.h"
+#import "Constants.h"
+#import "WebViewController.h"
 
 static NSString *CellIdentifier = @"Cell";
 @interface BFCMainViewController ()
 
+@property (strong, nonatomic) NSURL *feedURL;
 @end
 
 @implementation BFCMainViewController
@@ -19,7 +23,22 @@ static NSString *CellIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-   
+    self.formatter = [[NSDateFormatter alloc] init];
+    [self.formatter setDateStyle:NSDateFormatterShortStyle];
+    [self.formatter setTimeStyle:NSDateFormatterShortStyle];
+    self.parsedItems = [[NSMutableArray alloc] init];
+    
+    self.articles = [NSArray array];
+    
+    self.feedURL = [NSURL URLWithString:URLRSSIndieWire];
+    self.feedParser = [[MWFeedParser alloc] initWithFeedURL:self.feedURL];
+    self.feedParser.delegate = self;
+    self.feedParser.feedParseType = ParseTypeFull;
+    self.feedParser.connectionType = ConnectionTypeAsynchronously;
+    
+    // parse
+    [self.feedParser parse];
+    
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"NibTableViewCell" bundle:nil]
          forCellReuseIdentifier:CellIdentifier];
@@ -39,6 +58,53 @@ static NSString *CellIdentifier = @"Cell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    self.backgroundImageView.image = nil;
+}
+
+#pragma mark - Custom Methods
+
+- (void)refreshArticles {
+    //
+    [self.parsedItems removeAllObjects];
+    [self.feedParser stopParsing];
+    [self.feedParser parse];
+    self.tableView.userInteractionEnabled = NO;
+    self.tableView.alpha = 0.3;
+
+}
+
+- (void)updateTableWithParsedItems {
+    self.articles = [self.parsedItems sortedArrayUsingDescriptors:
+                           [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                                ascending:NO]]];
+    
+    
+    self.tableView.userInteractionEnabled = YES;
+    self.tableView.alpha = 1;
+    [self.tableView reloadData];
+    
+}
+
+#pragma mark -
+#pragma mark MWFeedParserDelegate
+
+- (void)feedParserDidStart:(MWFeedParser *)parser {
+    NSLog(@"Started Parsing: %@", parser.url);
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info {
+    NSLog(@"Parsed Feed Info: “%@”", info.title);
+    self.title = info.title;
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item {
+    NSLog(@"Parsed Feed Item: “%@”", item.title);
+    if (item) [self.parsedItems addObject:item];
+}
+
+- (void)feedParserDidFinish:(MWFeedParser *)parser {
+    NSLog(@"Finished Parsing%@", (parser.stopped ? @" (Stopped)" : @""));
+    [self updateTableWithParsedItems];
 }
 
 #pragma mark - Table view data source
@@ -48,26 +114,32 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return [self.articles count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NibTableViewCell *cell = (NibTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    
+    MWFeedItem *item = self.articles[indexPath.row];
+    if (item) {
+        // Process
+        NSString *itemTitle = item.title ? [item.title stringByConvertingHTMLToPlainText] : @"[No Title]";
+        NSString *itemSummary = item.summary ? [item.summary stringByConvertingHTMLToPlainText] : @"[No Summary]";
+        cell.nibLabel.text = itemTitle;
+
+    }
+/*
     cell.nibLabel.text = [NSString stringWithFormat:@"Section: %ld, row %ld", indexPath.section, (long)(long)indexPath.row];
     
+ */
     return cell;
 }
 
-/*
+
 - (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    // remember this causes a crash because it causes an infinite cycle
-    // NibTableViewCell *cell = (NibTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    //return 100.0;return [NibTableViewCell nibCellHeight];//
+    return 80.0;
 }
- */
 
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 
